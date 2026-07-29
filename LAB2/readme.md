@@ -8,7 +8,8 @@ it direct connect with client os rater than browser
 
 - Directory Mangement
   - mkdir()
-  - rmdir()
+  - rmdir()  - depricated
+  - rm()
   - readdir()
 
 - Metadata/ Information
