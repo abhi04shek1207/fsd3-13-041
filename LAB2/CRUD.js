@@ -16,9 +16,18 @@ const getCart = async () => {
 
 const addToCart = async (item) => {
   const products = await getCart();
+  const productFound = product.find((p)=> p.id === iteam.id);
+   if(produdctFound){
+    productFound.qty += iteam.qty;
+    comsole.log("product in cart is updated");
+   } else {
+        products.push(iteam);
+        console.log("product added succesfully");
+   }
   products.push(item);
   await saveCart(products);
 };
+
 const showCart =  () => {
   console.log("showcart:");
 
