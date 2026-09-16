@@ -1,44 +1,54 @@
- import http from "http";
+import http from "http";
 
 const server = http.createServer((req,res)=>{
     if(req.url === '/' && req.method === 'GET'){
+      
         res.statusCode = 200;
         res.end("Get Request");
 
     }
     else if(req.url === '/' && req.method === "POST"){
-        //console.log("Request:",req);
-         let body =''
-         req.on("data",(chunk) => {
-            body += chunk;
-         });
-         req.on("end", () => {
-            const product = JSON.parse(body);
-            console.log("received product:",product);
-            res.statusCode = 201;
-            res.end(JSON.stringify({msg:'product added',product}));
-         });
-
-         
-
+      //console.log("Request:",req)
+      let body=''
+      req.on('data',(chunk)=>{
+        body += chunk
+      });
+      req.on("end",()=>{
+        const product=JSON.parse(body);
+        console.log("received product:",product);
+          res.statusCode = 200;
+        res.end(JSON.stringify({msg:'Product added',product}));
+      });
+      
     }
-     
+    else if(req.url.startsWith("/products/") && req.method === "PUT"){
+      const productID=req.url.split('/').pop();
+      console.log("update product ID:",productID);
+      let body=''
+      req.on('data',(chunk)=>{
+        body += chunk
+      });
+      req.on("end",()=>{
+        const product=JSON.parse(body);
+        console.log("received product:",product);
+          res.statusCode = 200;
+        res.end(JSON.stringify({msg:'Product added',product}));
 
-    else if(req.url === '/' && req.method === "PUT"){
+
         res.statusCode = 200;
-        res.end(" PUT Request");
+        res.end(' PUT Request');
     }
     else if(req.url === '/' && req.method === "DELETE"){
         res.statusCode = 200;
-        res.end( "DELETE Request");
+        res.end(' DELETE Request');
     }
     else if(req.url === '/' && req.method === "DELETE"){
         res.statusCode = 200;
-        res.end("DELETE Request");
+        res.end('DELETE Request');
     }
     else{
         res.statusCode = 404;
-        res.end("request Not Found");
+        res.end('request Not Found');
     }
 
 });
