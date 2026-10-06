@@ -1,4 +1,4 @@
-import { products } from "./data.js";
+import { products, products } from "./data.js";
 import express from "express"
 
 
@@ -66,7 +66,20 @@ app.get("/api/products/:id",(req,res)=>{
 
     // res.send(`will show product id:, ${id}`);
 });
-// query string / reqeust querry must be before replace parametreor dynamic url;
+ app.get("api/products/:id/review",(req,res)=>{
+    res.send("return all review of particular products id")
+ })
+   
+
+ app.send("api/products/:id/review/:revid",(req,res)=>{
+    const {id, revid}=req.params;
+    const products = products.find((item)=> item.id===Number(revid))
+    if(!review){
+        res.send(`invalid review id: ${revid} for products id${id}`);
+        return;
+    }
+    return res.status(200).send(review);
+ });
 
 
 app.use((req,res)=>{
